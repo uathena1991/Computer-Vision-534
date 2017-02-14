@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 from scipy.spatial.distance import cdist
 from skimage.measure import label, regionprops, moments, moments_central, moments_normalized, moments_hu
-from skimage import io, exposure,filters
+from skimage import io, exposure, filters, morphology
 import matplotlib.pyplot as plt
 import os
 from matplotlib.patches import Rectangle
@@ -13,18 +13,34 @@ def feature_database(char,thr_binary,threshold_size,disp_idx):
     class_label = []
     img = io.imread(os.getcwd()+'/Documents/Computer-Vision-534/hw1/H1-16images/'+char+'.bmp')
     hist = exposure.histogram(img)
+    # img = morphology.closing(img)
+    # img = morphology.dilation(img)
     
     ### calculate threshold for binarization
     # thr_binary = filters.threshold_isodata(img)
     # thr_binary = filters.threshold_li(img)
-    # thr_binary = filters.threshold_otsu(img)
+    thr_binary = filters.threshold_otsu(img)
     # thr_binary = filters.threshold_yen(img)
     img_binary = (img < thr_binary).astype(np.double)
     # print thr_binary
-   
     # img_binary = np.logical_not(filters.threshold_adaptive(img,151,method='gaussian')).astype(np.double)
-    # io.imshow(img_binary)
-    # io.show()
+    
+    # print img_binary
+    
+
+    
+
+    ### dilation 
+    img_binary = morphology.binary_closing(img_binary).astype(np.double)    
+    img_binary = morphology.binary_dilation(img_binary).astype(np.double)    
+    # # skeletonize
+    # img_binary = morphology.skeletonize(img_binary).astype(np.double)
+    # # erosion
+    # img_binary = morphology.binary_dilation(img_binary).astype(np.double)
+    ## visualize
+    io.imshow(img_binary)
+    io.show()
+    
     img_label = label(img_binary, background=0)     ### labeling
     regions = regionprops(img_label) 
     ### bounding boxes and Store features in Features
