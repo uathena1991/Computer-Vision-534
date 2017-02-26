@@ -8,33 +8,56 @@ import os
 from matplotlib.patches import Rectangle
 import pickle
 
-def Recognition(filename,features_train, features_mean,features_std,class_labels,thr_binary,threshold_size,disp_idx):
+
+def cal_knn(class_labels,num_k,x):
+    res = [class_labels[x[i]] for i in range(num_k)]
+    return max(set(res),key = res.count)    
+
+def Recognition(filename,features_train, features_mean,features_std,class_labels,thr_binary,threshold_size,disp_idx,improve_idx,num_k = 10):
     features_test = []
     ## read image and binarization
     img = io.imread(os.getcwd()+'/Documents/Computer-Vision-534/hw1/H1-16images/' + filename + '.bmp')
     hist = exposure.histogram(img)
-    # img = morphology.closing(img)
-    # img = morphology.dilation(img)
-
-    # thr_binary = filters.threshold_isodata(img)
-    # thr_binary = filters.threshold_li(img)
-    thr_binary = filters.threshold_otsu(img)
-    # thr_binary = filters.threshold_yen(img)
-    img_binary = (img < thr_binary).astype(np.double)
-    # print thr_binary
-    # img_binary = np.logical_not(filters.threshold_adaptive(img,151,method='gaussian')).astype(np.double)
     
-    
-
-
-
-    ### dilation 
-    img_binary = morphology.binary_closing(img_binary).astype(np.double)   
-    img_binary = morphology.binary_dilation(img_binary).astype(np.double)    
-    ## thinner
-    # img_binary = morphology.skeletonize(img_binary).astype(np.double)
-    #     # erosion
-    # img_binary = morphology.binary_dilation(img_binary).astype(np.double)
+    if improve_idx:
+        
+        # equated contrast
+        img = exposure.equalize_adapthist(img)
+        
+        # histogram equalization
+        # img_binary = exposure.equalize_hist(img_binary)    
+        
+        # log transformation
+        # img = exposure.adjust_log(img)
+        # hist = exposure.histogram(img)
+        
+        # smoothing
+        # img = filters.gaussian(img, sigma = 1)
+        img = filters.laplace(img)
+        # img = filters.median(img,selem = morphology.disk(1))
+                
+        
+        # automate threshold
+        # thr_binary = filters.threshold_isodata(img)
+        # thr_binary = filters.threshold_li(img)
+        thr_binary = filters.threshold_otsu(img)
+        # thr_binary = filters.threshold_yen(img)
+        img_binary = (img < thr_binary).astype(np.double)
+        # img_binary = np.logical_not(filters.threshold_adaptive(img,151,method='gaussian')).astype(np.double)
+ 
+        # closing and opening
+        # img = morphology.closing(img)
+        # img = morphology.dilation(img)
+        
+        ### dilation and erosion
+        # img_binary = morphology.binary_closing(img_binary).astype(np.double)   
+        img_binary = morphology.binary_dilation(img_binary).astype(np.double)    
+        
+        ## thinner
+        # img_binary = morphology.skeletonize(img_binary).astype(np.double)
+    else:
+            img_binary = (img < thr_binary).astype(np.double)
+            
     ## visualize
     io.imshow(img_binary)
     io.show()
@@ -87,6 +110,54 @@ def Recognition(filename,features_train, features_mean,features_std,class_labels
         plt.title('Distance Matrix') 
         io.show()
     D_index = np.argsort(D, axis=1)
-    Ypred = [class_labels[x[0]] for x in D_index]
+    if improve_idx:
+        # Ypred = [train.class_labels[x[0]] for x in D_index]
+        Ypred = [cal_knn(class_labels,num_k,x) for x in D_index]
+        # train.cal_knn(class_labels,num_k,x)
+    else:
+        Ypred = [class_labels[x[0]] for x in D_index]
     # print np.shape(D)
     return Ypred, features_test,regions_return
+
+
+
+def evaluate_ORC(gtruth,regions,Ypred_test):
+    import matplotlib.patches as patches
+    # load groundtruth
+    pkl_file = open(os.getcwd() + '/Documents/Computer-Vision-534/hw1/' + gtruth + '.pkl', 'rb')
+    mydict = pickle.load(pkl_file) 
+    pkl_file.close()
+    classes = mydict['classes']  # N*1
+    locations = mydict['locations'] # N*2
+#     print classes,locations
+    # function: in polygon
+    def inpolygon(polygons,p):
+        for i in range(len(polygons)):
+            minr, minc, maxr, maxc = polygons[i]
+            if (minr-p[1])*(maxr-p[1]) <= 0 and (minc-p[0])*(maxc-p[0]) <= 0:
+                return i
+        return -1
+
+    # cal recognition rate
+    correct_ct = 0
+    ## visualize
+    fig = plt.figure(figsize = [10,10])
+    ax = fig.add_subplot(111)
+    for i in range(len(locations)):
+        rc_gt = locations[i]
+        idx = inpolygon(regions,rc_gt)
+        ## visualize
+        ax.plot(rc_gt[0],rc_gt[1],'b.')
+        ax.annotate(classes[i],xy = tuple(locations[i]+np.array([10,0])))
+        if idx > 0:
+            ## visualize
+            ax.add_patch(patches.Rectangle((regions[idx][1],regions[idx][0]),regions[idx][3]-regions[idx][1],
+                                           regions[idx][2]-regions[idx][0],fill=False))
+            ax.annotate(Ypred_test[idx],xy = tuple(locations[i]+np.array([30,0])))
+            if Ypred_test[idx]  == classes[i]:
+                ax.plot(rc_gt[0],rc_gt[1],'r.')
+                correct_ct += 1
+    plt.gca().invert_yaxis()
+    plt.show()
+    return float(correct_ct)/len(locations)
+    

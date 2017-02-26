@@ -8,35 +8,53 @@ import os
 from matplotlib.patches import Rectangle
 import pickle
 
-def feature_database(char,thr_binary,threshold_size,disp_idx):
+def feature_database(char,thr_binary,threshold_size,disp_idx,improve_idx):
     Features = []
     class_label = []
     img = io.imread(os.getcwd()+'/Documents/Computer-Vision-534/hw1/H1-16images/'+char+'.bmp')
     hist = exposure.histogram(img)
-    # img = morphology.closing(img)
-    # img = morphology.dilation(img)
     
-    ### calculate threshold for binarization
-    # thr_binary = filters.threshold_isodata(img)
-    # thr_binary = filters.threshold_li(img)
-    thr_binary = filters.threshold_otsu(img)
-    # thr_binary = filters.threshold_yen(img)
-    img_binary = (img < thr_binary).astype(np.double)
-    # print thr_binary
-    # img_binary = np.logical_not(filters.threshold_adaptive(img,151,method='gaussian')).astype(np.double)
-    
-    # print img_binary
-    
+    if improve_idx:
+        
+        # equated contrast
+        img = exposure.equalize_adapthist(img)
+        
+        # histogram equalization
+        # img_binary = exposure.equalize_hist(img_binary)
+        
+        # log transformation
+        # img = exposure.adjust_log(img)
+        # hist = exposure.histogram(img)
+        
+        # smoothing
+        # img = filters.gaussian(img,sigma = 1)
+        img = filters.laplace(img)
+        # img = filters.median(img,selem = morphology.disk(1))
+        
+        # automate threshold
+        # thr_binary = filters.threshold_isodata(img)
+        # thr_binary = filters.threshold_li(img)
+        thr_binary = filters.threshold_otsu(img)
+        # thr_binary = filters.threshold_yen(img)
+        img_binary = (img < thr_binary).astype(np.double)
+        # img_binary = np.logical_not(filters.threshold_adaptive(img,151,method='gaussian')).astype(np.double)
 
-    
 
-    ### dilation 
-    img_binary = morphology.binary_closing(img_binary).astype(np.double)    
-    img_binary = morphology.binary_dilation(img_binary).astype(np.double)    
-    # # skeletonize
-    # img_binary = morphology.skeletonize(img_binary).astype(np.double)
-    # # erosion
-    # img_binary = morphology.binary_dilation(img_binary).astype(np.double)
+        
+        # closing and opening
+        # img = morphology.closing(img)
+        # img = morphology.dilation(img)
+        
+        ### binary morphology dilation and erosion
+        # img_binary = morphology.binary_closing(img_binary).astype(np.double)   
+        # img_binary = morphology.binary_opening(img_binary).astype(np.double)    
+        # img_binary = morphology.binary_closing(img_binary).astype(np.double)        
+        img_binary = morphology.binary_dilation(img_binary).astype(np.double)        
+        ## thinner
+        # img_binary = morphology.skeletonize(img_binary).astype(np.double)
+    else:
+            img_binary = (img < thr_binary).astype(np.double)
+            
     ## visualize
     io.imshow(img_binary)
     io.show()
@@ -79,3 +97,6 @@ def feature_database(char,thr_binary,threshold_size,disp_idx):
         io.show()
     return Features,class_label
 
+def cal_knn(class_labels,num_k,x):
+    res = [class_labels[x[i]] for i in range(1,num_k)]
+    return max(set(res),key = res.count)    
