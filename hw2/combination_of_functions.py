@@ -58,7 +58,7 @@ def GrowImage(SampleImage, image2bfilled, filled_status, winsize):
 		progress = 0
 		row_idxs, col_idxs = GetUnfilledNeighbors(filled_status, winsize)
 		for ridx, colidx in zip(row_idxs, col_idxs):
-			Template, validmask = GetNeighborhoodWindow(ridx, colidx, image2bfilled, winsize)
+			Template, validmask = GetNeighborhoodWindow(ridx, colidx, image2bfilled, filled_status, winsize)
 			BestMatches_list = FindMatches(Template, SampleImage, validmask, winsize)
 			BestMatch_loc, BestMatch_error = RandomPick(BestMatches_list)
 			if BestMatch_error < MaxErrThreshold:
@@ -96,7 +96,7 @@ def GetUnfilledNeighbors(filled_status, winsize):
 
 
 ## GetNeighborhoodWindow
-def GetNeighborhoodWindow(ridx, colidx, image2bfilled, winsize):
+def GetNeighborhoodWindow(ridx, colidx, image2bfilled,filled_status, winsize):
 	half_winsize = winsize / 2
 	row_range = range(ridx - half_winsize, ridx + half_winsize + 1)
 	col_range = range(colidx - half_winsize, colidx + half_winsize + 1)
@@ -106,7 +106,7 @@ def GetNeighborhoodWindow(ridx, colidx, image2bfilled, winsize):
 		for c in range(winsize):
 			if row_range[r] in range(image2bfilled.shape[0]) and col_range[c] in range(image2bfilled.shape[1]):
 				template[r, c] = image2bfilled[row_range[r], col_range[c]]
-				template_filled_status[r, c] = True
+				template_filled_status[r, c] = filled_status[row_range[r], col_range[c]]
 	return template, template_filled_status
 
 
