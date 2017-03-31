@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import pdb
+from sklearn import feature_extraction as sfe
 
 sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 
@@ -20,7 +21,7 @@ sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 # In[ ]:
 
 ## growimage 
-def synthesize(filename, winsize, shape_newimage, shape_seed=(15, 15)):
+def synthesize(filename, win_size, shape_newimage, shape_seed=(15, 15)):
 	# read sample image
 	img_sample = io.imread(os.getcwd() + '/Assignment-II-images/' + filename)
 
@@ -39,7 +40,7 @@ def synthesize(filename, winsize, shape_newimage, shape_seed=(15, 15)):
 	shape_newimage[1] / 2: (shape_newimage[1] / 2 + shape_seed[1])] = True
 
 	# Synthesis
-	img_new = GrowImage(img_sample, img2bfilled, filled_status, winsize)
+	img_new = GrowImage(img_sample, img2bfilled, filled_status, win_size)
 
 	# show image
 	plt.imshow(img_sample)
@@ -50,32 +51,32 @@ def synthesize(filename, winsize, shape_newimage, shape_seed=(15, 15)):
 	plt.show()
 
 
-def GrowImage(SampleImage, image2bfilled, filled_status, winsize):
+def GrowImage(sample_img, img2bfilled, filled_status, win_size):
 	MaxErrThreshold = 0.3
 	ct = 0
 	while not filled_status.all():
 		print ct
 		progress = 0
-		row_idxs, col_idxs = GetUnfilledNeighbors(filled_status, winsize)
+		row_idxs, col_idxs = GetUnfilledNeighbors(filled_status, win_size)
 		for ridx, colidx in zip(row_idxs, col_idxs):
-			Template, validmask = GetNeighborhoodWindow(ridx, colidx, image2bfilled, filled_status, winsize)
-			BestMatches_list = FindMatches(Template, SampleImage, validmask, winsize)
+			template, validmask = GetNeighborhoodWindow(ridx, colidx, img2bfilled, filled_status, win_size)
+			BestMatches_list = FindMatches(template, sample_img, validmask, win_size)
 			BestMatch_loc, BestMatch_error = RandomPick(BestMatches_list)
 			if BestMatch_error < MaxErrThreshold:
-				image2bfilled[ridx, colidx] = SampleImage[BestMatch_loc]
+				img2bfilled[ridx, colidx] = sample_img[BestMatch_loc]
 				progress = 1
 				filled_status[ridx, colidx] = True
 				ct+=1
 		# pdb.set_trace()
-		plt.imshow(image2bfilled, cmap='gray')
+		plt.imshow(img2bfilled, cmap='gray')
 		plt.show()
 		if progress == 0:
 			MaxErrThreshold *= 1.1
-	return image2bfilled
+	return img2bfilled
 
 
 ## GetUnfilledNeighbors
-def GetUnfilledNeighbors(filled_status, winsize):
+def GetUnfilledNeighbors(filled_status, win_size):
 	subs_image = morphology.dilation(filled_status) - filled_status
 	#     pdb.set_trace()
 	[row_idxs, col_idxs] = np.where(subs_image != 0)
@@ -84,7 +85,7 @@ def GetUnfilledNeighbors(filled_status, winsize):
 	row_idxs = [row_idxs[idx] for idx in randidx]
 	col_idxs = [col_idxs[idx] for idx in randidx]
 	# sorted by decreasing number of filled neighbor pixels
-	filledsum = scipy.ndimage.generic_filter((filled_status!=0).astype('double'), np.sum, winsize)
+	filledsum = scipy.ndimage.generic_filter((filled_status!=0).astype('double'), np.sum, win_size)
 	#     pdb.set_trace()
 	# filled sum for the boundary points in row_idxs,col_idxs
 	filledsum_bs = [filledsum[x, y] for x, y in zip(row_idxs, col_idxs)]
@@ -96,37 +97,42 @@ def GetUnfilledNeighbors(filled_status, winsize):
 
 
 ## GetNeighborhoodWindow
-def GetNeighborhoodWindow(ridx, colidx, image2bfilled,filled_status, winsize):
-	half_winsize = winsize / 2
-	row_range = range(ridx - half_winsize, ridx + half_winsize + 1)
-	col_range = range(colidx - half_winsize, colidx + half_winsize + 1)
-	template = np.zeros((winsize, winsize))
-	template_filled_status = np.ones((winsize, winsize)) == False
-	for r in range(winsize):
-		for c in range(winsize):
-			if row_range[r] in range(image2bfilled.shape[0]) and col_range[c] in range(image2bfilled.shape[1]):
-				template[r, c] = image2bfilled[row_range[r], col_range[c]]
+def GetNeighborhoodWindow(ridx, colidx, img2bfilled,filled_status, win_size):
+	half_win_size = win_size / 2
+	row_range = range(ridx - half_win_size, ridx + half_win_size + 1)
+	col_range = range(colidx - half_win_size, colidx + half_win_size + 1)
+	template = np.zeros((win_size, win_size))
+	template_filled_status = np.ones((win_size, win_size)) == False
+	for r in range(win_size):
+		for c in range(win_size):
+			if row_range[r] in range(img2bfilled.shape[0]) and col_range[c] in range(img2bfilled.shape[1]):
+				template[r, c] = img2bfilled[row_range[r], col_range[c]]
 				template_filled_status[r, c] = filled_status[row_range[r], col_range[c]]
 	return template, template_filled_status
 
 
 ## Find Matches, return locations, corresponding ssd
-def FindMatches(Template, SampleImage, ValidMask, winsize):
-	Sigma = winsize / 6.4
+def FindMatches(template, sample_img, ValidMask, win_size):
+	Sigma = win_size / 6.4
 	ErrThreshold = 0.1
-	sample_r, sample_c = SampleImage.shape
+	sample_r, sample_c = sample_img.shape
 
-	GaussMask = gkern(winsize, Sigma)
+	GaussMask = gkern(win_size, Sigma)
 	maskintotal = np.multiply(ValidMask, GaussMask)
 	mask_normalized = maskintotal / maskintotal.sum()
-	SSD = np.zeros(SampleImage.shape)
+	# SSD = np.zeros(sample_img.shape)
 	PixelList = []  # locations of qualified candidates
-	#     for i,j in zip(range(winsize/2, sample_r - winsize/2-1), range(winsize/2, sample_c - winsize/2-1)): # for each patch in SampleImage
-	for i in range(winsize / 2, sample_r - winsize / 2 - 1):  # for each patch in SampleImage
-		for j in range(winsize / 2, sample_c - winsize / 2 - 1):
+	#     for i,j in zip(range(win_size/2, sample_r - win_size/2-1), range(win_size/2, sample_c - win_size/2-1)): # for each patch in sample_img
+	patches_list = sfe.image.extract_patches_2d(sample_img, (win_size,win_size))# array, shape = (n_patches, patch_heidth)
+	dist_filter = (patches_list - template)**2*mask_normalized
+	SSD = [d.sum() for d in dist_filter]
+
+
+	for i in range(win_size / 2, sample_r - win_size / 2 - 1):  # for each patch in sample_img
+		for j in range(win_size / 2, sample_c - win_size / 2 - 1):
 			#             pdb.set_trace()
-			curr_patch = SampleImage[i - winsize / 2:i + winsize / 2+1, j - winsize / 2:j + winsize / 2 +1]
-			dist = (Template - curr_patch) ** 2
+			curr_patch = sample_img[i - win_size / 2:i + win_size / 2+1, j - win_size / 2:j + win_size / 2 +1]
+			dist = (template - curr_patch) ** 2
 			SSD[i, j] += np.multiply(dist, mask_normalized).sum()
 		#     pdb.set_trace()
 	thr = SSD[SSD != 0].min() * (1 + ErrThreshold)

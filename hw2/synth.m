@@ -185,7 +185,7 @@ green_templates = repmat(green, [1 npatches]);
 blue_templates = repmat(blue, [1 npatches]);
 
 red_dist =  mask_vec * (red_templates - red_patches).^2;
-green_dist = mask_vec * gi(green_templates - green_patches).^2 ;
+green_dist = mask_vec * (green_templates - green_patches).^2 ;
 blue_dist = mask_vec * (blue_templates - blue_patches).^2;
 
 SSD = (red_dist + green_dist + blue_dist);
