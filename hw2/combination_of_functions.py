@@ -25,8 +25,8 @@ def synthesize(filename, winsize, shape_newimage, shape_seed=(15, 15)):
 	img_sample = io.imread(os.getcwd() + '/Assignment-II-images/' + filename)
 
 	# initialize img2bfilled with a random sample from sample image (size: shape_seed)
-	randrow = round(np.random.rand() * (img_sample.shape[0] - shape_seed[0]))
-	randcol = round(np.random.rand() * (img_sample.shape[1] - shape_seed[1]))
+	randrow = int(np.random.rand() * (img_sample.shape[0] - shape_seed[0]))
+	randcol = int(np.random.rand() * (img_sample.shape[1] - shape_seed[1]))
 	seed_img = img_sample[randrow: randrow + shape_seed[0], randcol: randcol + shape_seed[1]]
 	# (left-up corner is the center of img2bfilled)
 	#     range_in_img2bfilled = (shape_newimage[0]/2 : (shape_newimage[0]/2 + shape_seed[0]),
@@ -50,33 +50,33 @@ def synthesize(filename, winsize, shape_newimage, shape_seed=(15, 15)):
 	plt.show()
 
 
-def GrowImage(SampleImage, Image2bfilled, filled_status, winsize):
+def GrowImage(SampleImage, image2bfilled, filled_status, winsize):
 	MaxErrThreshold = 0.3
 	ct = 0
 	while not filled_status.all():
 		print ct
 		progress = 0
-		row_idxs, col_idxs = GetUnfilledNeighbors(Image2bfilled, winsize)
+		row_idxs, col_idxs = GetUnfilledNeighbors(filled_status, winsize)
 		for ridx, colidx in zip(row_idxs, col_idxs):
-			Template, validmask = GetNeighborhoodWindow(ridx, colidx, Image2bfilled, winsize)
+			Template, validmask = GetNeighborhoodWindow(ridx, colidx, image2bfilled, winsize)
 			BestMatches_list = FindMatches(Template, SampleImage, validmask, winsize)
 			BestMatch_loc, BestMatch_error = RandomPick(BestMatches_list)
 			if BestMatch_error < MaxErrThreshold:
-				Image2bfilled[ridx, colidx] = SampleImage[BestMatch_loc]
+				image2bfilled[ridx, colidx] = SampleImage[BestMatch_loc]
 				progress = 1
 				filled_status[ridx, colidx] = True
 				ct+=1
 		# pdb.set_trace()
-		plt.imshow(Image2bfilled, cmap='gray')
+		plt.imshow(image2bfilled, cmap='gray')
 		plt.show()
 		if progress == 0:
 			MaxErrThreshold *= 1.1
-	return Image2bfilled
+	return image2bfilled
 
 
 ## GetUnfilledNeighbors
-def GetUnfilledNeighbors(Image2bfilled, winsize):
-	subs_image = morphology.dilation(Image2bfilled) - Image2bfilled
+def GetUnfilledNeighbors(filled_status, winsize):
+	subs_image = morphology.dilation(filled_status) - filled_status
 	#     pdb.set_trace()
 	[row_idxs, col_idxs] = np.where(subs_image != 0)
 	# random permutation
@@ -84,8 +84,9 @@ def GetUnfilledNeighbors(Image2bfilled, winsize):
 	row_idxs = [row_idxs[idx] for idx in randidx]
 	col_idxs = [col_idxs[idx] for idx in randidx]
 	# sorted by decreasing number of filled neighbor pixels
-	filledsum = scipy.ndimage.generic_filter((Image2bfilled!=0).astype('double'), np.sum, winsize)
+	filledsum = scipy.ndimage.generic_filter((filled_status!=0).astype('double'), np.sum, winsize)
 	#     pdb.set_trace()
+	# filled sum for the boundary points in row_idxs,col_idxs
 	filledsum_bs = [filledsum[x, y] for x, y in zip(row_idxs, col_idxs)]
 	#     pdb.set_trace()
 	sorted_idx = np.array(filledsum_bs).argsort()[::-1]
@@ -95,7 +96,7 @@ def GetUnfilledNeighbors(Image2bfilled, winsize):
 
 
 ## GetNeighborhoodWindow
-def GetNeighborhoodWindow(ridx, colidx, Image2bfilled, winsize):
+def GetNeighborhoodWindow(ridx, colidx, image2bfilled, winsize):
 	half_winsize = winsize / 2
 	row_range = range(ridx - half_winsize, ridx + half_winsize + 1)
 	col_range = range(colidx - half_winsize, colidx + half_winsize + 1)
@@ -103,8 +104,8 @@ def GetNeighborhoodWindow(ridx, colidx, Image2bfilled, winsize):
 	template_filled_status = np.ones((winsize, winsize)) == False
 	for r in range(winsize):
 		for c in range(winsize):
-			if row_range[r] in range(Image2bfilled.shape[0]) and col_range[c] in range(Image2bfilled.shape[1]):
-				template[r, c] = Image2bfilled[row_range[r], col_range[c]]
+			if row_range[r] in range(image2bfilled.shape[0]) and col_range[c] in range(image2bfilled.shape[1]):
+				template[r, c] = image2bfilled[row_range[r], col_range[c]]
 				template_filled_status[r, c] = True
 	return template, template_filled_status
 
