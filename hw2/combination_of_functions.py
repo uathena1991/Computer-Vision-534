@@ -5,7 +5,7 @@
 # %reset 
 import numpy as np
 import scipy
-from skimage import morphology, io
+from skimage import morphology, io, img_as_float
 import matplotlib.pyplot as plt
 import os
 import sys
@@ -24,8 +24,8 @@ sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 ## growimage 
 def synthesize(filename, win_size, shape_newimage, shape_seed=(15, 15)):
 	# read sample image
-	img_sample = io.imread(os.getcwd() + '/Assignment-II-images/' + filename)
-
+	img_sample0 = io.imread(os.getcwd() + '/Assignment-II-images/' + filename)
+	img_sample = img_as_float(img_sample0)
 	# initialize img2bfilled with a random sample from sample image (size: shape_seed)
 	randrow = int(np.random.rand() * (img_sample.shape[0] - shape_seed[0]))
 	randcol = int(np.random.rand() * (img_sample.shape[1] - shape_seed[1]))
@@ -48,10 +48,10 @@ def synthesize(filename, win_size, shape_newimage, shape_seed=(15, 15)):
 	img_new = GrowImage(img_sample, img2bfilled, filled_status, win_size)
 
 	# show image
-	plt.imshow(img_sample)
+	plt.imshow(img_sample,'gray')
 	plt.title('sample image')
 	plt.show()
-	plt.imshow(img_new)
+	plt.imshow(img_new,'gray')
 	plt.title('Sythesized image')
 	plt.show()
 
@@ -60,7 +60,7 @@ def GrowImage(sample_img, img2bfilled, filled_status, win_size):
 	MaxErrThreshold = 0.3
 	ct = 0
 	while not filled_status.all():
-		print ct
+		print 'filled pixels is ', ct
 		progress = 0
 		row_idxs, col_idxs = GetUnfilledNeighbors(filled_status, win_size)
 
@@ -78,8 +78,8 @@ def GrowImage(sample_img, img2bfilled, filled_status, win_size):
 				filled_status[ridx, colidx] = True
 				ct+=1
 		# pdb.set_trace()
-		plt.imshow(img2bfilled, cmap='gray')
-		plt.show()
+		# plt.imshow(img2bfilled, cmap='gray')
+		# plt.show()
 		if progress == 0:
 			MaxErrThreshold *= 1.1
 	return img2bfilled
@@ -116,18 +116,22 @@ def GetNeighborhoodWindow(ridx, colidx, img2bfilled,filled_status, win_size):
 	# row,column range in the img2bfilled
 	if row_range[0]>=0 and col_range[0]>=0 and row_range[-1] < img2bfilled.shape[0] and col_range[-1] < img2bfilled.shape[1]:
 		template = img2bfilled[row_range[0]:row_range[-1]+1,col_range[0]:col_range[-1]+1]
+		template_filled_status = filled_status[row_range[0]:row_range[-1]+1,col_range[0]:col_range[-1]+1]
 	else:
 		minr_img2f = max(0, ridx - half_win_size)
 		maxr_img2f = min(img2bfilled.shape[0], ridx + half_win_size + 1)
 		minc_img2f = max(0, colidx - half_win_size)
 		maxc_img2f = min(img2bfilled.shape[1], colidx + half_win_size + 1)
-		template[minr_img2f-ridx+half_win_size:maxr_img2f-ridx+1+half_win_size, minc_img2f-colidx+half_win_size:maxc_img2f+1-colidx+half_win_size] = img2bfilled[minr_img2f:maxr_img2f+1, minc_img2f:maxc_img2f+1]
-
-	for r in range(win_size):
-		for c in range(win_size):
-			if row_range[r] in range(img2bfilled.shape[0]) and col_range[c] in range(img2bfilled.shape[1]):
-				template[r, c] = img2bfilled[row_range[r], col_range[c]]
-				template_filled_status[r, c] = filled_status[row_range[r], col_range[c]]
+		template[minr_img2f-ridx+half_win_size:maxr_img2f-ridx+half_win_size,
+		minc_img2f-colidx+half_win_size:maxc_img2f-colidx+half_win_size] = img2bfilled[minr_img2f:maxr_img2f, minc_img2f:maxc_img2f]
+		template_filled_status[minr_img2f-ridx+half_win_size:maxr_img2f-ridx+half_win_size,
+		minc_img2f-colidx+half_win_size:maxc_img2f-colidx+half_win_size] = filled_status[minr_img2f:maxr_img2f, minc_img2f:maxc_img2f]
+	# for r in range(win_size):
+	# 	for c in range(win_size):
+	# 		if row_range[r] in range(img2bfilled.shape[0]) and col_range[c] in range(img2bfilled.shape[1]):
+	# 			template[r, c] = img2bfilled[row_range[r], col_range[c]]
+	# 			template_filled_status[r, c] = filled_status[row_range[r], col_range[c]]
+	pdb.set_trace()
 	return template, template_filled_status
 
 
@@ -141,7 +145,7 @@ def FindMatches(template, sample_img, ValidMask, win_size):
 	patches_list = sfe.image.extract_patches_2d(sample_img, (win_size,win_size))# array, shape = (n_patches, patch_heidth)
 	dist_filter = (patches_list - template)**2*mask_normalized
 	SSD = np.asarray([d.sum() for d in dist_filter])
-	thr = SSD[SSD != 0].min() * (1 + ErrThreshold)
+	thr = SSD.min() * (1 + ErrThreshold)
 	res_loc_1d, = np.where(SSD<=thr) # location in 1d
 	res_ssd_1d = SSD[res_loc_1d]  # ssd in those locations
 	return res_loc_1d,res_ssd_1d
@@ -187,4 +191,4 @@ def RandomPick(BMs_list,BMs_ssd):
 	return BMs_list[rand_idx],BMs_ssd[rand_idx]
 
 
-synthesize('T1.gif', 11, [100, 100])
+synthesize('T1.gif', 5, [100, 100])
