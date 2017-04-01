@@ -57,8 +57,6 @@ def inpainting(filename, filetype, win_size):
 
 
 def GrowImage(sample_img, img2bfilled, filled_status, win_size):
-	def find_sample_patches(ridx,colidx):
-
 	MaxErrThreshold = 0.3
 	ct = 0
 	sample_winsize = 51
@@ -69,11 +67,8 @@ def GrowImage(sample_img, img2bfilled, filled_status, win_size):
 		row_idxs, col_idxs = GetUnfilledNeighbors(filled_status, win_size)
 		for ridx, colidx in zip(row_idxs, col_idxs):
 			template, validmask_tmp = GetNeighborhoodWindow(ridx, colidx, img2bfilled, filled_status, win_size)
-			## define sample_img, location in terms of (ridx,colidx)
-			sample_pathes, validmask_tmp = GetNeighborhoodWindow(ridx, colidx, img2bfilled, filled_status, win_size)
-			
-
-			BMs_list,BMs_ssd, BMs_pixels= FindMatches(template, sample_img, validmask_tmp, validmask_sample, win_size)
+			sample_imgrange, sam_filled_status = GetNeighborhoodWindow(ridx, colidx, img2bfilled, filled_status, sample_winsize)
+			BMs_list,BMs_ssd, BMs_pixels= FindMatches(template, sample_imgrange, sam_filled_status, validmask_tmp, win_size, sample_winsize)
 			BM_loc,BM_ssd,BM_value = RandomPick(BMs_list, BMs_ssd, BMs_pixels)
 			# filled if BM_ssd is smaller than MaxErrThreshold
 			if BM_ssd < MaxErrThreshold:
@@ -135,16 +130,17 @@ def GetNeighborhoodWindow(ridx, colidx, img2bfilled,filled_status, win_size):
 	return template, template_filled_status
 
 ## Find Matches, return locations, corresponding ssd (in 1d), and corresponding pixel value
-def FindMatches(template, sample_img, ValidMask_tmp, ValidMask_sample, win_size):
+def FindMatches(template, sample_range, sam_filled_status, ValidMask_tmp, win_size, sample_winsize):
 	Sigma = win_size / 6.4
 	ErrThreshold = 0.1
-	patches_list = sfe.image.extract_patches_2d(sample_img, (win_size,win_size))# array, shape = (n_patches, patch_heidth)
-	validmask_list = sfe.image.extract_patches_2d(ValidMask_sample, (win_size,win_size))
+	## define sample_img, location in terms of (ridx,colidx)
+	patches_list = sfe.image.extract_patches_2d(sample_range, (win_size,win_size))# array, shape = (n_patches, patch_heidth)
+	validmask_list = sfe.image.extract_patches_2d(sam_filled_status, (win_size,win_size))
+	patches_nonzero = patches_list[np.sum(validmask_list,(1,2))==win_size*win_size]
 	GaussMask = gkern(win_size, Sigma)
 	mask_raw = ValidMask_tmp* GaussMask
-	mask_rraw = np.asarray([mask_raw*xx for xx in validmask_list])
-	mask_normalized = np.asarray([xx / xx.sum() for xx in mask_rraw])
-	dist_filter = (patches_list - template)**2*mask_normalized
+	mask_normalized = mask_raw/mask_raw.sum()
+	dist_filter = (patches_nonzero - template)**2*mask_normalized
 	SSD = np.asarray([d.sum() for d in dist_filter])
 	thr = np.nanmin(SSD) * (1 + ErrThreshold)
 	res_loc_1d, = np.where(SSD<=thr) # location in 1d

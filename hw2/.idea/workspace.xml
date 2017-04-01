@@ -36,13 +36,14 @@
       <file leaf-file-name="inpainting.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/inpainting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="73" column="12" lean-forward="true" selection-start-line="73" selection-start-column="12" selection-end-line="73" selection-end-column="12" />
+            <state relative-caret-position="209">
+              <caret line="138" column="27" lean-forward="true" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
               <folding>
                 <element signature="e#36#54#0" expanded="true" />
-                <element signature="e#2692#3489#0" expanded="false" />
-                <element signature="e#5978#6407#0" expanded="false" />
-                <element signature="e#6454#6662#0" expanded="false" />
+                <element signature="e#2493#3290#0" expanded="false" />
+                <element signature="e#3396#4715#0" expanded="false" />
+                <element signature="e#5845#6274#0" expanded="false" />
+                <element signature="e#6321#6529#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -68,7 +69,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="186" />
+    <option name="x" value="40" />
     <option name="y" value="23" />
     <option name="width" value="1486" />
     <option name="height" value="877" />
@@ -305,8 +306,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.combination_of_functions" />
-        <item index="1" class="java.lang.String" itemvalue="Python.tmp" />
+        <item index="0" class="java.lang.String" itemvalue="Python.tmp" />
+        <item index="1" class="java.lang.String" itemvalue="Python.combination_of_functions" />
       </list>
     </recent_temporary>
   </component>
@@ -317,14 +318,14 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="186" y="23" width="1486" height="877" extended-state="0" />
+    <frame x="40" y="23" width="1486" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14675768" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39947438" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39947438" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -406,13 +407,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/inpainting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="73" column="12" lean-forward="true" selection-start-line="73" selection-start-column="12" selection-end-line="73" selection-end-column="12" />
+        <state relative-caret-position="209">
+          <caret line="138" column="27" lean-forward="true" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
           <folding>
             <element signature="e#36#54#0" expanded="true" />
-            <element signature="e#2692#3489#0" expanded="false" />
-            <element signature="e#5978#6407#0" expanded="false" />
-            <element signature="e#6454#6662#0" expanded="false" />
+            <element signature="e#2493#3290#0" expanded="false" />
+            <element signature="e#3396#4715#0" expanded="false" />
+            <element signature="e#5845#6274#0" expanded="false" />
+            <element signature="e#6321#6529#0" expanded="false" />
           </folding>
         </state>
       </provider>
