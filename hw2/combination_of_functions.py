@@ -11,6 +11,7 @@ import os
 import sys
 import pdb
 from sklearn import feature_extraction as sfe
+plt.interactive(False)
 
 sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 
@@ -39,6 +40,10 @@ def synthesize(filename, win_size, shape_newimage, shape_seed=(15, 15)):
 	filled_status[shape_newimage[0] / 2: (shape_newimage[0] / 2 + shape_seed[0]),
 	shape_newimage[1] / 2: (shape_newimage[1] / 2 + shape_seed[1])] = True
 
+	plt.imshow(img2bfilled,cmap = 'gray')
+	plt.title('Initial patch')
+	plt.show()
+
 	# Synthesis
 	img_new = GrowImage(img_sample, img2bfilled, filled_status, win_size)
 
@@ -58,12 +63,17 @@ def GrowImage(sample_img, img2bfilled, filled_status, win_size):
 		print ct
 		progress = 0
 		row_idxs, col_idxs = GetUnfilledNeighbors(filled_status, win_size)
+
 		for ridx, colidx in zip(row_idxs, col_idxs):
 			template, validmask = GetNeighborhoodWindow(ridx, colidx, img2bfilled, filled_status, win_size)
-			BestMatches_list = FindMatches(template, sample_img, validmask, win_size)
-			BestMatch_loc, BestMatch_error = RandomPick(BestMatches_list)
-			if BestMatch_error < MaxErrThreshold:
-				img2bfilled[ridx, colidx] = sample_img[BestMatch_loc]
+			BMs_list,BMs_ssd = FindMatches(template, sample_img, validmask, win_size)
+			BM_loc,BM_ssd = RandomPick(BMs_list, BMs_ssd)
+			# find its 2d location index
+			samp_img_r,samp_img_c = sample_img.shape
+			BM_row, BM_col = BM_loc/(samp_img_c - win_size + 1),BM_loc%(samp_img_c - win_size + 1)
+			# filled if BM_ssd is smaller than MaxErrThreshold
+			if BM_ssd < MaxErrThreshold:
+				img2bfilled[ridx, colidx] = sample_img[BM_row,BM_col]
 				progress = 1
 				filled_status[ridx, colidx] = True
 				ct+=1
@@ -103,6 +113,16 @@ def GetNeighborhoodWindow(ridx, colidx, img2bfilled,filled_status, win_size):
 	col_range = range(colidx - half_win_size, colidx + half_win_size + 1)
 	template = np.zeros((win_size, win_size))
 	template_filled_status = np.ones((win_size, win_size)) == False
+	# row,column range in the img2bfilled
+	if row_range[0]>=0 and col_range[0]>=0 and row_range[-1] < img2bfilled.shape[0] and col_range[-1] < img2bfilled.shape[1]:
+		template = img2bfilled[row_range[0]:row_range[-1]+1,col_range[0]:col_range[-1]+1]
+	else:
+		minr_img2f = max(0, ridx - half_win_size)
+		maxr_img2f = min(img2bfilled.shape[0], ridx + half_win_size + 1)
+		minc_img2f = max(0, colidx - half_win_size)
+		maxc_img2f = min(img2bfilled.shape[1], colidx + half_win_size + 1)
+		template[minr_img2f-ridx+half_win_size:maxr_img2f-ridx+1+half_win_size, minc_img2f-colidx+half_win_size:maxc_img2f+1-colidx+half_win_size] = img2bfilled[minr_img2f:maxr_img2f+1, minc_img2f:maxc_img2f+1]
+
 	for r in range(win_size):
 		for c in range(win_size):
 			if row_range[r] in range(img2bfilled.shape[0]) and col_range[c] in range(img2bfilled.shape[1]):
@@ -111,36 +131,34 @@ def GetNeighborhoodWindow(ridx, colidx, img2bfilled,filled_status, win_size):
 	return template, template_filled_status
 
 
-## Find Matches, return locations, corresponding ssd
+## Find Matches, return locations, corresponding ssd (in 1d)
 def FindMatches(template, sample_img, ValidMask, win_size):
 	Sigma = win_size / 6.4
 	ErrThreshold = 0.1
-	sample_r, sample_c = sample_img.shape
-
 	GaussMask = gkern(win_size, Sigma)
-	maskintotal = np.multiply(ValidMask, GaussMask)
-	mask_normalized = maskintotal / maskintotal.sum()
-	# SSD = np.zeros(sample_img.shape)
-	PixelList = []  # locations of qualified candidates
-	#     for i,j in zip(range(win_size/2, sample_r - win_size/2-1), range(win_size/2, sample_c - win_size/2-1)): # for each patch in sample_img
+	mask_raw = np.multiply(ValidMask, GaussMask)
+	mask_normalized = mask_raw / mask_raw.sum()
 	patches_list = sfe.image.extract_patches_2d(sample_img, (win_size,win_size))# array, shape = (n_patches, patch_heidth)
 	dist_filter = (patches_list - template)**2*mask_normalized
-	SSD = [d.sum() for d in dist_filter]
-
-
-	for i in range(win_size / 2, sample_r - win_size / 2 - 1):  # for each patch in sample_img
-		for j in range(win_size / 2, sample_c - win_size / 2 - 1):
-			#             pdb.set_trace()
-			curr_patch = sample_img[i - win_size / 2:i + win_size / 2+1, j - win_size / 2:j + win_size / 2 +1]
-			dist = (template - curr_patch) ** 2
-			SSD[i, j] += np.multiply(dist, mask_normalized).sum()
-		#     pdb.set_trace()
+	SSD = np.asarray([d.sum() for d in dist_filter])
 	thr = SSD[SSD != 0].min() * (1 + ErrThreshold)
-	for i in range(SSD.shape[0]):
-		for j in range(SSD.shape[1]):
-			if SSD[i, j] <= thr:
-				PixelList.append([(i, j), SSD[i, j]])
-	return PixelList
+	res_loc_1d, = np.where(SSD<=thr) # location in 1d
+	res_ssd_1d = SSD[res_loc_1d]  # ssd in those locations
+	return res_loc_1d,res_ssd_1d
+
+	#
+	# for i in range(win_size / 2, sample_r - win_size / 2 - 1):  # for each patch in sample_img
+	# 	for j in range(win_size / 2, sample_c - win_size / 2 - 1):
+	# 		#             pdb.set_trace()
+	# 		curr_patch = sample_img[i - win_size / 2:i + win_size / 2+1, j - win_size / 2:j + win_size / 2 +1]
+	# 		dist = (template - curr_patch) ** 2
+	# 		SSD[i, j] += np.multiply(dist, mask_normalized).sum()
+	# 	#     pdb.set_trace()
+	# for i in range(SSD.shape[0]):
+	# 	for j in range(SSD.shape[1]):
+	# 		if SSD[i, j] <= thr:
+	# 			PixelList.append([(i, j), SSD[i, j]])
+	# return PixelList
 
 
 def gkern(size, fwhm=3.0, center=None):
@@ -163,9 +181,10 @@ def gkern(size, fwhm=3.0, center=None):
 	return np.exp(-4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2)
 
 
-def RandomPick(BestMatches):
+def RandomPick(BMs_list,BMs_ssd):
 	## return the location of the best match randomly from the candidates lists
-	return BestMatches[np.random.randint(0, len(BestMatches))]
+	rand_idx = np.random.randint(0, len(BMs_list))
+	return BMs_list[rand_idx],BMs_ssd[rand_idx]
 
 
 synthesize('T1.gif', 11, [100, 100])
