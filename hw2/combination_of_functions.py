@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import pdb
+import time
 from sklearn import feature_extraction as sfe
 plt.interactive(False)
-
 sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 
 
@@ -24,7 +24,7 @@ sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 ## growimage 
 def synthesize(filename, win_size, shape_newimage, shape_seed=(15, 15)):
 	# read sample image
-	img_sample0 = io.imread(os.getcwd() + '/Assignment-II-images/' + filename)
+	img_sample0 = io.imread(os.getcwd() + '/Assignment-II-images/' + filename + '.gif')
 	img_sample = img_as_float(img_sample0)
 	# initialize img2bfilled with a random sample from sample image (size: shape_seed)
 	randrow = int(np.random.rand() * (img_sample.shape[0] - shape_seed[0]))
@@ -40,20 +40,21 @@ def synthesize(filename, win_size, shape_newimage, shape_seed=(15, 15)):
 	filled_status[shape_newimage[0] / 2: (shape_newimage[0] / 2 + shape_seed[0]),
 	shape_newimage[1] / 2: (shape_newimage[1] / 2 + shape_seed[1])] = True
 
-	plt.imshow(img2bfilled,cmap = 'gray')
-	plt.title('Initial patch')
-	plt.show()
-
 	# Synthesis
 	img_new = GrowImage(img_sample, img2bfilled, filled_status, win_size)
 
-	# show image
+	# show and save image
+	plt.imshow(img2bfilled,cmap = 'gray')
+	plt.title('Initial patch')
+	plt.show()
 	plt.imshow(img_sample,'gray')
 	plt.title('sample image')
 	plt.show()
 	plt.imshow(img_new,'gray')
 	plt.title('Sythesized image')
+	plt.savefig('Syth_%s_size_%d.png' %(filename,win_size))
 	plt.show()
+
 
 
 def GrowImage(sample_img, img2bfilled, filled_status, win_size):
@@ -66,14 +67,11 @@ def GrowImage(sample_img, img2bfilled, filled_status, win_size):
 
 		for ridx, colidx in zip(row_idxs, col_idxs):
 			template, validmask = GetNeighborhoodWindow(ridx, colidx, img2bfilled, filled_status, win_size)
-			BMs_list,BMs_ssd = FindMatches(template, sample_img, validmask, win_size)
-			BM_loc,BM_ssd = RandomPick(BMs_list, BMs_ssd)
-			# find its 2d location index
-			samp_img_r,samp_img_c = sample_img.shape
-			BM_row, BM_col = BM_loc/(samp_img_c - win_size + 1),BM_loc%(samp_img_c - win_size + 1)
+			BMs_list,BMs_ssd, BMs_pixels= FindMatches(template, sample_img, validmask, win_size)
+			BM_loc,BM_ssd,BM_value = RandomPick(BMs_list, BMs_ssd, BMs_pixels)
 			# filled if BM_ssd is smaller than MaxErrThreshold
 			if BM_ssd < MaxErrThreshold:
-				img2bfilled[ridx, colidx] = sample_img[BM_row,BM_col]
+				img2bfilled[ridx, colidx] = BM_value
 				progress = 1
 				filled_status[ridx, colidx] = True
 				ct+=1
@@ -83,7 +81,6 @@ def GrowImage(sample_img, img2bfilled, filled_status, win_size):
 		if progress == 0:
 			MaxErrThreshold *= 1.1
 	return img2bfilled
-
 
 ## GetUnfilledNeighbors
 def GetUnfilledNeighbors(filled_status, win_size):
@@ -105,7 +102,6 @@ def GetUnfilledNeighbors(filled_status, win_size):
 	res_col = [col_idxs[i] for i in sorted_idx]
 	return res_row, res_col
 
-
 ## GetNeighborhoodWindow
 def GetNeighborhoodWindow(ridx, colidx, img2bfilled,filled_status, win_size):
 	half_win_size = win_size / 2
@@ -126,16 +122,10 @@ def GetNeighborhoodWindow(ridx, colidx, img2bfilled,filled_status, win_size):
 		minc_img2f-colidx+half_win_size:maxc_img2f-colidx+half_win_size] = img2bfilled[minr_img2f:maxr_img2f, minc_img2f:maxc_img2f]
 		template_filled_status[minr_img2f-ridx+half_win_size:maxr_img2f-ridx+half_win_size,
 		minc_img2f-colidx+half_win_size:maxc_img2f-colidx+half_win_size] = filled_status[minr_img2f:maxr_img2f, minc_img2f:maxc_img2f]
-	# for r in range(win_size):
-	# 	for c in range(win_size):
-	# 		if row_range[r] in range(img2bfilled.shape[0]) and col_range[c] in range(img2bfilled.shape[1]):
-	# 			template[r, c] = img2bfilled[row_range[r], col_range[c]]
-	# 			template_filled_status[r, c] = filled_status[row_range[r], col_range[c]]
-	pdb.set_trace()
+
 	return template, template_filled_status
 
-
-## Find Matches, return locations, corresponding ssd (in 1d)
+## Find Matches, return locations, corresponding ssd (in 1d), and corresponding pixel value
 def FindMatches(template, sample_img, ValidMask, win_size):
 	Sigma = win_size / 6.4
 	ErrThreshold = 0.1
@@ -148,28 +138,15 @@ def FindMatches(template, sample_img, ValidMask, win_size):
 	thr = SSD.min() * (1 + ErrThreshold)
 	res_loc_1d, = np.where(SSD<=thr) # location in 1d
 	res_ssd_1d = SSD[res_loc_1d]  # ssd in those locations
-	return res_loc_1d,res_ssd_1d
+	# pdb.set_trace()
+	res_pixelvalues = patches_list[res_loc_1d,win_size/2,win_size/2]
+	return res_loc_1d,res_ssd_1d,res_pixelvalues
 
-	#
-	# for i in range(win_size / 2, sample_r - win_size / 2 - 1):  # for each patch in sample_img
-	# 	for j in range(win_size / 2, sample_c - win_size / 2 - 1):
-	# 		#             pdb.set_trace()
-	# 		curr_patch = sample_img[i - win_size / 2:i + win_size / 2+1, j - win_size / 2:j + win_size / 2 +1]
-	# 		dist = (template - curr_patch) ** 2
-	# 		SSD[i, j] += np.multiply(dist, mask_normalized).sum()
-	# 	#     pdb.set_trace()
-	# for i in range(SSD.shape[0]):
-	# 	for j in range(SSD.shape[1]):
-	# 		if SSD[i, j] <= thr:
-	# 			PixelList.append([(i, j), SSD[i, j]])
-	# return PixelList
-
-
-def gkern(size, fwhm=3.0, center=None):
+def gkern(size, sigma=3.0, center=None):
 	""" Make a square gaussian kernel.
 
     size is the length of a side of the square
-    fwhm is full-width-half-maximum, which
+    sigma is standard deviation
     can be thought of as an effective radius.
     """
 
@@ -181,14 +158,19 @@ def gkern(size, fwhm=3.0, center=None):
 	else:
 		x0 = center[0]
 		y0 = center[1]
+	raw_res = 1/(2*np.pi*sigma**2)*np.exp(-((x - x0) ** 2 + (y - y0) ** 2) / (2*sigma ** 2))
+	return raw_res/raw_res.sum()
 
-	return np.exp(-4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2)
-
-
-def RandomPick(BMs_list,BMs_ssd):
-	## return the location of the best match randomly from the candidates lists
+def RandomPick(BMs_list,BMs_ssd,BMs_pixel):
+	## return the location,ssd and pixel value of the best match randomly from the candidates lists
 	rand_idx = np.random.randint(0, len(BMs_list))
-	return BMs_list[rand_idx],BMs_ssd[rand_idx]
+	return BMs_list[rand_idx],BMs_ssd[rand_idx],BMs_pixel[rand_idx]
 
-
-synthesize('T1.gif', 5, [100, 100])
+filenames = ['T1','T2','T3','T4','T5']
+winsizes = [5,9,11]
+for fn in filenames:
+	for ws in winsizes:
+		t = time.time()
+		synthesize(fn, ws, [40, 40])
+		elapsed = time.time() - t
+		print elapsed

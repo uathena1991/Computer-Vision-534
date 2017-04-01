@@ -1,0 +1,9 @@
+\BOOKMARK [1][-]{section.1}{Results without any improvement}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Training sets}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Recognition on test sets}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Improvements}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Automating thresholding\(inconsistent effect\)}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Filters before thresholding\(inconsistent effect\)}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Closing, skeletonize and Dilation on binary image\(inconsistent effect\)}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{k nearest neighbors classifier\(inconsistent effect\)}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.5}{All improvements combined}{section.2}% 9
