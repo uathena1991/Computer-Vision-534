@@ -11,7 +11,7 @@ from multiprocessing import cpu_count
 import cv2
 plt.interactive(False)
 sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
-
+%pdb on
 
 def Getboundarypoints(filled_status):
     subs_image = morphology.dilation(filled_status) - filled_status
@@ -150,12 +150,13 @@ def objectremoval(filename, filetype, maskname, win_size = 9):
         # find max pirority patch
         Prior = np.array(Prior)
         priority_idx, = np.where(Prior == Prior.max())
-        priority_ploc = p_list[priority_idx]
+        priority_ploc = p_list[priority_idx[np.random.randint(0, len(priority_idx))]]
         template_img, template_gradient, template_c, template_filled_status = GetNeighborhoodWindow(priority_ploc[0], priority_ploc[1],new_img, grad_mag, conf, source_mask, win_size)
         BestMatch_patch = FindMatches(template_img, new_img, source_mask, template_filled_status, win_size)
         # fill in the patch and Updating confidence values.
         filledin(priority_ploc, win_size,new_img, conf, target_mask, source_mask, BestMatch_patch)
-
+        plt.imshow(new_img,'gray')
+        plt.show()
 
 objectremoval('test_im3','.jpg','test_im3_mask', win_size = 9)
 
