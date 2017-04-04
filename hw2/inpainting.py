@@ -21,13 +21,11 @@ sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 # In[ ]:
 
 ## growimage
-def inpainting(filename, filetype, win_size):
+def inpainting(filename, filetype, win_size, sample_winsize = 51):
 	"""
 	:param filename: sample image
 	:param filetype: type of image
 	:param win_size: size of synthesis window
-	:param shape_newimage: dimension of the image to be filled
-	:param shape_seed: initial seed image
 	:return: save figures to png file.
 	"""
 	# read sample image
@@ -38,7 +36,7 @@ def inpainting(filename, filetype, win_size):
 	filled_status = img_sample != 0
 
 	# inpainting
-	img_new = GrowImage(img_sample, img2bfilled, filled_status, win_size)
+	img_new = GrowImage(img_sample, img2bfilled, filled_status, win_size, sample_winsize)
 	elapsed = time.time() - t
 	print 'Total runtime is ',elapsed
 
@@ -51,15 +49,14 @@ def inpainting(filename, filetype, win_size):
 	plt.show()
 	plt.imshow(img_new,'gray')
 	plt.title('Sythesized image for %s with windowsize %d' %(filename,win_size))
-	plt.savefig('Syth_%s_size_%d.png' %(filename,win_size))
+	plt.savefig('Inpainting_%s_size_%d.png' %(filename,win_size))
 	plt.show()
 
 
 
-def GrowImage(sample_img, img2bfilled, filled_status, win_size):
+def GrowImage(sample_img, img2bfilled, filled_status, win_size, sample_winsize):
 	MaxErrThreshold = 0.3
 	ct = 0
-	sample_winsize = 51
 # 	pdb.set_trace()
 	while not filled_status.all():
 		print 'filled pixels is ', ct
@@ -138,7 +135,7 @@ def FindMatches(template, sample_range, sam_filled_status, ValidMask_tmp, win_si
 	validmask_list = sfe.image.extract_patches_2d(sam_filled_status, (win_size,win_size))
 	patches_nonzero = patches_list[np.sum(validmask_list,(1,2))==win_size*win_size]
 	GaussMask = gkern(win_size, Sigma)
-	mask_raw = ValidMask_tmp* GaussMask
+	mask_raw = ValidMask_tmp * GaussMask
 	mask_normalized = mask_raw/mask_raw.sum()
 	dist_filter = (patches_nonzero - template)**2*mask_normalized
 	SSD = np.asarray([d.sum() for d in dist_filter])
@@ -146,7 +143,7 @@ def FindMatches(template, sample_range, sam_filled_status, ValidMask_tmp, win_si
 	res_loc_1d, = np.where(SSD<=thr) # location in 1d
 	res_ssd_1d = SSD[res_loc_1d]  # ssd in those locations
 	# pdb.set_trace()
-	res_pixelvalues = patches_list[res_loc_1d,win_size/2,win_size/2]
+	res_pixelvalues = patches_nonzero[res_loc_1d,win_size/2,win_size/2]
 	return res_loc_1d,res_ssd_1d,res_pixelvalues
 
 def gkern(size, sigma=3.0, center=None):

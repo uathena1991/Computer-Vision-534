@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  1 APR 2017 17:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 APR 2017 21:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1230,31 +1230,38 @@ Syth_T3_size_9.png> <./figures/Syth_T3_size_11.png> <./figures/Syth_T4_size_5.p
 ng> <./figures/Syth_T4_size_9.png> <./figures/Syth_T4_size_11.png> <./figures/S
 yth_T5_size_5.png> <./figures/Syth_T5_size_9.png> <./figures/Syth_T5_size_11.pn
 g>] [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 83.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 83.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 85.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 85.
  (./Xiaoli_He_hw2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 83.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 83.
-Package rerunfilecheck Info: File `Xiaoli_He_hw2.out' has not changed.
-(rerunfilecheck)             Checksum: A0491FA4DEA7F5FD9F436665B44F21F5;103.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 83.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 85.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 85.
+
+
+Package rerunfilecheck Warning: File `Xiaoli_He_hw2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Xiaoli_He_hw2.out':
+(rerunfilecheck)             Before: A0491FA4DEA7F5FD9F436665B44F21F5;103
+(rerunfilecheck)             After:  1DF030F7C94633D1A24D5A9857C48880;152.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 85.
  ) 
 Here is how much of TeX's memory you used:
- 20982 strings out of 493089
- 400714 string characters out of 6134842
+ 20983 strings out of 493089
+ 400723 string characters out of 6134842
  498128 words of memory out of 5000000
  24048 multiletter control sequences out of 15000+600000
  9189 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,7n,67p,417b,339s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,7n,67p,417b,337s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
 sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on Xiaoli_He_hw2.pdf (4 pages, 4217454 bytes).
+Output written on Xiaoli_He_hw2.pdf (4 pages, 4219805 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
- 8 named destinations out of 1000 (max. 500000)
+ 89 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
  104 words of extra memory for PDF output out of 10000 (max. 10000000)
 

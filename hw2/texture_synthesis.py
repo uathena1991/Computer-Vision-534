@@ -168,9 +168,9 @@ def RandomPick(BMs_list,BMs_ssd,BMs_pixel):
 	rand_idx = np.random.randint(0, len(BMs_list))
 	return BMs_list[rand_idx],BMs_ssd[rand_idx],BMs_pixel[rand_idx]
 
-# filenames = ['T1','T2','T3','T4','T5']
-filenames = ['T1']
-winsizes = [11]
+filenames = ['T1','T2','T3','T4','T5']
+# filenames = ['T1']
+winsizes = [15,23]
 for fn in filenames:
 	for ws in winsizes:
 		synthesize(fn, ws, [200, 200])
