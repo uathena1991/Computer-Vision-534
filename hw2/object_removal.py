@@ -7,9 +7,6 @@ import sys
 import pdb
 import time
 from sklearn import feature_extraction as sfe
-from multiprocessing import cpu_count
-import cv2
-plt.interactive(False)
 sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 %pdb on
 
@@ -94,25 +91,26 @@ def filledin(ploc, win_size, new_img, conf, target_mask, source_mask, bestmactch
     col_range = range(ploc[1] - half_win_size, ploc[1] + half_win_size + 1)
     for r in row_range:
         for c in col_range:
-            if target_mask[r,c] and r >=0 and c>=0 and r<new_img.shape[0] and c< new_img.shape[1]:
-                new_img[r,c] = bestmactchpatch[r-ploc[0],c-ploc[1]]
-                target_mask[r,c] = False
-                source_mask[r,c] = True
-                conf[r,c] = conf[r-ploc[0], c-ploc[1]]
+            if r >=0 and c>=0 and r<new_img.shape[0] and c< new_img.shape[1]:
+                if target_mask[r,c]:
+                    new_img[r,c] = bestmactchpatch[r-ploc[0],c-ploc[1]]
+                    target_mask[r,c] = False
+                    source_mask[r,c] = True
+                    conf[r,c] = conf[r-ploc[0], c-ploc[1]]
 
 
 def objectremoval(filename, filetype, maskname, win_size = 9):
     # read sample image
     t = time.time()
-    # img_sample0 = io.imread(os.getcwd() + '/Documents/Computer-Vision-534/hw2/Assignment-II-images/' + filename + filetype)
-    img_sample0 = io.imread(os.getcwd() + '/Assignment-II-images/' + filename + filetype)
+    img_sample0 = io.imread(os.getcwd() + '/Documents/Computer-Vision-534/hw2/Assignment-II-images/' + filename + filetype)
+#     img_sample0 = io.imread(os.getcwd() + '/Assignment-II-images/' + filename + filetype)
     img_sample0 = color.rgb2gray(img_sample0) # rgb to gray level
     img = img_as_float(img_sample0) # convert image to 0-1 values
     new_img = np.copy(img)
     alpha = 1
     ## load mask
-    # mask = img_as_float(color.rgb2gray(io.imread(os.getcwd() + '/Documents/Computer-Vision-534/hw2/Assignment-II-images/' + maskname + '.jpg')))
-    mask = img_as_float(color.rgb2gray(io.imread(os.getcwd() + '/Assignment-II-images/' + maskname + '.jpg')))
+    mask = img_as_float(color.rgb2gray(io.imread(os.getcwd() + '/Documents/Computer-Vision-534/hw2/Assignment-II-images/' + maskname + '.jpg')))
+#     mask = img_as_float(color.rgb2gray(io.imread(os.getcwd() + '/Assignment-II-images/' + maskname + '.jpg')))
     mask = mask.astype('bool') # target region: 1;  else: 0
 #     plt.imshow(mask,'gray')
 #     plt.show()
@@ -123,6 +121,7 @@ def objectremoval(filename, filetype, maskname, win_size = 9):
     conf = (source_mask).astype('double')
     D = (source_mask).astype('double')
     # print conf
+    idx = 0
     while target_mask.any():
         print target_mask.sum()
         ## find pixels on the contour
@@ -155,10 +154,18 @@ def objectremoval(filename, filetype, maskname, win_size = 9):
         BestMatch_patch = FindMatches(template_img, new_img, source_mask, template_filled_status, win_size)
         # fill in the patch and Updating confidence values.
         filledin(priority_ploc, win_size,new_img, conf, target_mask, source_mask, BestMatch_patch)
-        plt.imshow(new_img,'gray')
-        plt.show()
+        idx += 1
+        if idx%100 == 0:
+            plt.imshow(new_img,'gray')
+            plt.show()
+    elapsed = time.time() - t
+    print 'Total runtime is ',elapsed
+    plt.imshow(new_img,'gray')
+    plt.title('Object removal for %s with windowsize %d (mask for %s)' %(filename,win_size,maskname))
+    plt.savefig('Removal%s_size_%d_mask%d.png' %(filename,win_size,maskname[-1]))
+    plt.show()
 
-objectremoval('test_im3','.jpg','test_im3_mask', win_size = 9)
+objectremoval('test_im3','.jpg','test_im3_mask3', win_size = 9)
 
 
 
