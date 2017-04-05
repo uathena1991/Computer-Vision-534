@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 APR 2017 21:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  5 APR 2017 16:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1114,154 +1114,384 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<./figures/Syth_T1_size_5.png, id=24, 578.16pt x 433.62pt>
+<./figures/Syth_T1_size_5.png, id=37, 578.16pt x 433.62pt>
 File: ./figures/Syth_T1_size_5.png Graphic file (type png)
 
 <use ./figures/Syth_T1_size_5.png>
-Package pdftex.def Info: ./figures/Syth_T1_size_5.png used on input line 44.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T1_size_5.png used on input line 48.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T1_size_9.png, id=26, 578.16pt x 433.62pt>
+<./figures/Syth_T1_size_9.png, id=39, 578.16pt x 433.62pt>
 File: ./figures/Syth_T1_size_9.png Graphic file (type png)
 
 <use ./figures/Syth_T1_size_9.png>
-Package pdftex.def Info: ./figures/Syth_T1_size_9.png used on input line 45.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T1_size_9.png used on input line 49.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T1_size_11.png, id=27, 578.16pt x 433.62pt>
+<./figures/Syth_T1_size_11.png, id=40, 578.16pt x 433.62pt>
 File: ./figures/Syth_T1_size_11.png Graphic file (type png)
 
 <use ./figures/Syth_T1_size_11.png>
-Package pdftex.def Info: ./figures/Syth_T1_size_11.png used on input line 46.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T1_size_11.png used on input line 50.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T2_size_5.png, id=28, 578.16pt x 433.62pt>
+<./figures/Syth_T1_size_15.png, id=41, 433.62pt x 289.08pt>
+File: ./figures/Syth_T1_size_15.png Graphic file (type png)
+
+<use ./figures/Syth_T1_size_15.png>
+Package pdftex.def Info: ./figures/Syth_T1_size_15.png used on input line 51.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T1_size_23.png, id=42, 578.16pt x 433.62pt>
+File: ./figures/Syth_T1_size_23.png Graphic file (type png)
+
+<use ./figures/Syth_T1_size_23.png>
+Package pdftex.def Info: ./figures/Syth_T1_size_23.png used on input line 52.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
+
+<./figures/Syth_T2_size_5.png, id=43, 578.16pt x 433.62pt>
 File: ./figures/Syth_T2_size_5.png Graphic file (type png)
 
 <use ./figures/Syth_T2_size_5.png>
-Package pdftex.def Info: ./figures/Syth_T2_size_5.png used on input line 47.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T2_size_5.png used on input line 53.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T2_size_9.png, id=29, 578.16pt x 433.62pt>
+<./figures/Syth_T2_size_9.png, id=44, 578.16pt x 433.62pt>
 File: ./figures/Syth_T2_size_9.png Graphic file (type png)
 
 <use ./figures/Syth_T2_size_9.png>
-Package pdftex.def Info: ./figures/Syth_T2_size_9.png used on input line 48.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T2_size_9.png used on input line 54.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T2_size_11.png, id=30, 578.16pt x 433.62pt>
+<./figures/Syth_T2_size_11.png, id=45, 578.16pt x 433.62pt>
 File: ./figures/Syth_T2_size_11.png Graphic file (type png)
 
 <use ./figures/Syth_T2_size_11.png>
-Package pdftex.def Info: ./figures/Syth_T2_size_11.png used on input line 49.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T2_size_11.png used on input line 55.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T3_size_5.png, id=31, 578.16pt x 433.62pt>
+<./figures/Syth_T2_size_15.png, id=46, 433.62pt x 289.08pt>
+File: ./figures/Syth_T2_size_15.png Graphic file (type png)
+
+<use ./figures/Syth_T2_size_15.png>
+Package pdftex.def Info: ./figures/Syth_T2_size_15.png used on input line 56.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T2_size_23.png, id=47, 433.62pt x 289.08pt>
+File: ./figures/Syth_T2_size_23.png Graphic file (type png)
+
+<use ./figures/Syth_T2_size_23.png>
+Package pdftex.def Info: ./figures/Syth_T2_size_23.png used on input line 57.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T3_size_5.png, id=48, 578.16pt x 433.62pt>
 File: ./figures/Syth_T3_size_5.png Graphic file (type png)
 
 <use ./figures/Syth_T3_size_5.png>
-Package pdftex.def Info: ./figures/Syth_T3_size_5.png used on input line 50.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T3_size_5.png used on input line 58.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T3_size_9.png, id=32, 578.16pt x 433.62pt>
+<./figures/Syth_T3_size_9.png, id=49, 578.16pt x 433.62pt>
 File: ./figures/Syth_T3_size_9.png Graphic file (type png)
 
 <use ./figures/Syth_T3_size_9.png>
-Package pdftex.def Info: ./figures/Syth_T3_size_9.png used on input line 51.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T3_size_9.png used on input line 59.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T3_size_11.png, id=33, 578.16pt x 433.62pt>
+<./figures/Syth_T3_size_11.png, id=50, 578.16pt x 433.62pt>
 File: ./figures/Syth_T3_size_11.png Graphic file (type png)
 
 <use ./figures/Syth_T3_size_11.png>
-Package pdftex.def Info: ./figures/Syth_T3_size_11.png used on input line 52.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T3_size_11.png used on input line 60.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T4_size_5.png, id=34, 578.16pt x 433.62pt>
+<./figures/Syth_T3_size_15.png, id=51, 433.62pt x 289.08pt>
+File: ./figures/Syth_T3_size_15.png Graphic file (type png)
+
+<use ./figures/Syth_T3_size_15.png>
+Package pdftex.def Info: ./figures/Syth_T3_size_15.png used on input line 61.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T3_size_23.png, id=52, 433.62pt x 289.08pt>
+File: ./figures/Syth_T3_size_23.png Graphic file (type png)
+
+<use ./figures/Syth_T3_size_23.png>
+Package pdftex.def Info: ./figures/Syth_T3_size_23.png used on input line 62.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T4_size_5.png, id=53, 578.16pt x 433.62pt>
 File: ./figures/Syth_T4_size_5.png Graphic file (type png)
 
 <use ./figures/Syth_T4_size_5.png>
-Package pdftex.def Info: ./figures/Syth_T4_size_5.png used on input line 53.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T4_size_5.png used on input line 63.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T4_size_9.png, id=35, 578.16pt x 433.62pt>
+<./figures/Syth_T4_size_9.png, id=54, 578.16pt x 433.62pt>
 File: ./figures/Syth_T4_size_9.png Graphic file (type png)
 
 <use ./figures/Syth_T4_size_9.png>
-Package pdftex.def Info: ./figures/Syth_T4_size_9.png used on input line 54.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T4_size_9.png used on input line 64.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T4_size_11.png, id=36, 578.16pt x 433.62pt>
+<./figures/Syth_T4_size_11.png, id=55, 578.16pt x 433.62pt>
 File: ./figures/Syth_T4_size_11.png Graphic file (type png)
 
 <use ./figures/Syth_T4_size_11.png>
-Package pdftex.def Info: ./figures/Syth_T4_size_11.png used on input line 55.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T4_size_11.png used on input line 65.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T5_size_5.png, id=37, 578.16pt x 433.62pt>
+<./figures/Syth_T4_size_15.png, id=56, 433.62pt x 289.08pt>
+File: ./figures/Syth_T4_size_15.png Graphic file (type png)
+
+<use ./figures/Syth_T4_size_15.png>
+Package pdftex.def Info: ./figures/Syth_T4_size_15.png used on input line 66.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T4_size_23.png, id=57, 433.62pt x 289.08pt>
+File: ./figures/Syth_T4_size_23.png Graphic file (type png)
+
+<use ./figures/Syth_T4_size_23.png>
+Package pdftex.def Info: ./figures/Syth_T4_size_23.png used on input line 67.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T5_size_5.png, id=58, 578.16pt x 433.62pt>
 File: ./figures/Syth_T5_size_5.png Graphic file (type png)
 
 <use ./figures/Syth_T5_size_5.png>
-Package pdftex.def Info: ./figures/Syth_T5_size_5.png used on input line 56.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T5_size_5.png used on input line 68.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T5_size_9.png, id=38, 578.16pt x 433.62pt>
+<./figures/Syth_T5_size_9.png, id=59, 578.16pt x 433.62pt>
 File: ./figures/Syth_T5_size_9.png Graphic file (type png)
 
 <use ./figures/Syth_T5_size_9.png>
-Package pdftex.def Info: ./figures/Syth_T5_size_9.png used on input line 57.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T5_size_9.png used on input line 69.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-<./figures/Syth_T5_size_11.png, id=39, 578.16pt x 433.62pt>
+<./figures/Syth_T5_size_11.png, id=60, 578.16pt x 433.62pt>
 File: ./figures/Syth_T5_size_11.png Graphic file (type png)
 
 <use ./figures/Syth_T5_size_11.png>
-Package pdftex.def Info: ./figures/Syth_T5_size_11.png used on input line 58.
-(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+Package pdftex.def Info: ./figures/Syth_T5_size_11.png used on input line 70.
+(pdftex.def)             Requested size: 89.2546pt x 66.93912pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 42--61
+<./figures/Syth_T5_size_15.png, id=61, 433.62pt x 289.08pt>
+File: ./figures/Syth_T5_size_15.png Graphic file (type png)
 
+<use ./figures/Syth_T5_size_15.png>
+Package pdftex.def Info: ./figures/Syth_T5_size_15.png used on input line 71.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+
+<./figures/Syth_T5_size_23.png, id=62, 433.62pt x 289.08pt>
+File: ./figures/Syth_T5_size_23.png Graphic file (type png)
+
+<use ./figures/Syth_T5_size_23.png>
+Package pdftex.def Info: ./figures/Syth_T5_size_23.png used on input line 72.
+(pdftex.def)             Requested size: 89.2546pt x 59.49997pt.
+ [2 <./figures/Syth_T1_size_5.png> <./figures/Syth_T1_size_9.png> <./figures/Sy
+th_T1_size_11.png> <./figures/Syth_T1_size_15.png> <./figures/Syth_T1_size_23.p
+ng> <./figures/Syth_T2_size_5.png> <./figures/Syth_T2_size_9.png> <./figures/Sy
+th_T2_size_11.png> <./figures/Syth_T2_size_15.png> <./figures/Syth_T2_size_23.p
+ng> <./figures/Syth_T3_size_5.png> <./figures/Syth_T3_size_9.png> <./figures/Sy
+th_T3_size_11.png> <./figures/Syth_T3_size_15.png> <./figures/Syth_T3_size_23.p
+ng> <./figures/Syth_T4_size_5.png> <./figures/Syth_T4_size_9.png> <./figures/Sy
+th_T4_size_11.png> <./figures/Syth_T4_size_15.png> <./figures/Syth_T4_size_23.p
+ng> <./figures/Syth_T5_size_5.png> <./figures/Syth_T5_size_9.png> <./figures/Sy
+th_T5_size_11.png> <./figures/Syth_T5_size_15.png> <./figures/Syth_T5_size_23.p
+ng>]
+<./figures/Inpainting_test_im1_size_5.png, id=95, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im1_size_5.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im1_size_5.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im1_size_5.png used on input
+ line 83.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+<./figures/Inpainting_test_im1_size_9.png, id=96, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im1_size_9.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im1_size_9.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im1_size_9.png used on input
+ line 84.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+<./figures/Inpainting_test_im1_size_11.png, id=97, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im1_size_11.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im1_size_11.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im1_size_11.png used on inpu
+t line 85.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+<./figures/Inpainting_test_im1_size_19.png, id=98, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im1_size_19.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im1_size_19.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im1_size_19.png used on inpu
+t line 86.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+<./figures/Inpainting_test_im2_size_5.png, id=99, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im2_size_5.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im2_size_5.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im2_size_5.png used on input
+ line 87.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+<./figures/Inpainting_test_im2_size_9.png, id=100, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im2_size_9.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im2_size_9.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im2_size_9.png used on input
+ line 88.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+<./figures/Inpainting_test_im2_size_11.png, id=101, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im2_size_11.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im2_size_11.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im2_size_11.png used on inpu
+t line 89.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+<./figures/Inpainting_test_im2_size_19.png, id=102, 433.62pt x 289.08pt>
+File: ./figures/Inpainting_test_im2_size_19.png Graphic file (type png)
+
+<use ./figures/Inpainting_test_im2_size_19.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im2_size_19.png used on inpu
+t line 90.
+(pdftex.def)             Requested size: 108.04164pt x 72.0272pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--91
+[][] [] [] []
  []
 
-[2] [3 <./figures/Syth_T1_size_5.png> <./figures/Syth_T1_size_9.png> <./figures
-/Syth_T1_size_11.png> <./figures/Syth_T2_size_5.png> <./figures/Syth_T2_size_9.
-png> <./figures/Syth_T2_size_11.png> <./figures/Syth_T3_size_5.png> <./figures/
-Syth_T3_size_9.png> <./figures/Syth_T3_size_11.png> <./figures/Syth_T4_size_5.p
-ng> <./figures/Syth_T4_size_9.png> <./figures/Syth_T4_size_11.png> <./figures/S
-yth_T5_size_5.png> <./figures/Syth_T5_size_9.png> <./figures/Syth_T5_size_11.pn
-g>] [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 85.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 85.
+[3 <./figures/Inpainting_test_im1_size_5.png> <./figures/Inpainting_test_im1_si
+ze_9.png> <./figures/Inpainting_test_im1_size_11.png> <./figures/Inpainting_tes
+t_im1_size_19.png> <./figures/Inpainting_test_im2_size_5.png> <./figures/Inpain
+ting_test_im2_size_9.png> <./figures/Inpainting_test_im2_size_11.png> <./figure
+s/Inpainting_test_im2_size_19.png>]
+<./figures/Inpainting_test_im3_inpainting1_size_9.png, id=119, 578.16pt x 433.6
+2pt>
+File: ./figures/Inpainting_test_im3_inpainting1_size_9.png Graphic file (type p
+ng)
+ <use ./figures/Inpainting_test_im3_inpainting1_size_9.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im3_inpainting1_size_9.png u
+sed on input line 101.
+(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+
+<./figures/Inpainting_test_im3_inpainting2_size_9.png, id=120, 578.16pt x 433.6
+2pt>
+File: ./figures/Inpainting_test_im3_inpainting2_size_9.png Graphic file (type p
+ng)
+ <use ./figures/Inpainting_test_im3_inpainting2_size_9.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im3_inpainting2_size_9.png u
+sed on input line 102.
+(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+
+<./figures/Inpainting_test_im3_inpainting3_size_9.png, id=121, 578.16pt x 433.6
+2pt>
+File: ./figures/Inpainting_test_im3_inpainting3_size_9.png Graphic file (type p
+ng)
+ <use ./figures/Inpainting_test_im3_inpainting3_size_9.png>
+Package pdftex.def Info: ./figures/Inpainting_test_im3_inpainting3_size_9.png u
+sed on input line 103.
+(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+
+<./figures/Removaltest_im3_size_9_mask1.png, id=122, 579.16376pt x 434.62375pt>
+File: ./figures/Removaltest_im3_size_9_mask1.png Graphic file (type png)
+<use ./figures/Removaltest_im3_size_9_mask1.png>
+Package pdftex.def Info: ./figures/Removaltest_im3_size_9_mask1.png used on inp
+ut line 104.
+(pdftex.def)             Requested size: 155.02pt x 116.32867pt.
+
+<./figures/Removaltest_im3_size_9_mask2.png, id=123, 578.16pt x 433.62pt>
+File: ./figures/Removaltest_im3_size_9_mask2.png Graphic file (type png)
+
+<use ./figures/Removaltest_im3_size_9_mask2.png>
+Package pdftex.def Info: ./figures/Removaltest_im3_size_9_mask2.png used on inp
+ut line 105.
+(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+
+<./figures/Removaltest_im3_size_9_mask3.png, id=124, 579.16376pt x 434.62375pt>
+File: ./figures/Removaltest_im3_size_9_mask3.png Graphic file (type png)
+<use ./figures/Removaltest_im3_size_9_mask3.png>
+Package pdftex.def Info: ./figures/Removaltest_im3_size_9_mask3.png used on inp
+ut line 106.
+(pdftex.def)             Requested size: 155.02pt x 116.32867pt.
+ [4 <./figures/Inpainting_test_im3_inpainting1_size_9.png> <./figures/Inpaintin
+g_test_im3_inpainting2_size_9.png> <./figures/Inpainting_test_im3_inpainting3_s
+ize_9.png> <./figures/Removaltest_im3_size_9_mask1.png> <./figures/Removaltest_
+im3_size_9_mask2.png> <./figures/Removaltest_im3_size_9_mask3.png>]
+<./figures/Quilting_T1.png, id=138, 578.16pt x 433.62pt>
+File: ./figures/Quilting_T1.png Graphic file (type png)
+
+<use ./figures/Quilting_T1.png>
+Package pdftex.def Info: ./figures/Quilting_T1.png used on input line 121.
+(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+
+<./figures/Quilting_T2.png, id=139, 578.16pt x 433.62pt>
+File: ./figures/Quilting_T2.png Graphic file (type png)
+
+<use ./figures/Quilting_T2.png>
+Package pdftex.def Info: ./figures/Quilting_T2.png used on input line 122.
+(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+
+<./figures/Quilting_T3.png, id=140, 578.16pt x 433.62pt>
+File: ./figures/Quilting_T3.png Graphic file (type png)
+
+<use ./figures/Quilting_T3.png>
+Package pdftex.def Info: ./figures/Quilting_T3.png used on input line 123.
+(pdftex.def)             Requested size: 155.02pt x 116.26514pt.
+
+<./figures/Quilting_T4.png, id=141, 578.16pt x 433.62pt>
+File: ./figures/Quilting_T4.png Graphic file (type png)
+
+<use ./figures/Quilting_T4.png>
+Package pdftex.def Info: ./figures/Quilting_T4.png used on input line 124.
+(pdftex.def)             Requested size: 211.38832pt x 158.53795pt.
+
+<./figures/Quilting_T5.png, id=142, 578.16pt x 433.62pt>
+File: ./figures/Quilting_T5.png Graphic file (type png)
+
+<use ./figures/Quilting_T5.png>
+Package pdftex.def Info: ./figures/Quilting_T5.png used on input line 125.
+(pdftex.def)             Requested size: 211.38832pt x 158.53795pt.
+ [5 <./figures/Quilting_T1.png (PNG copy)> <./figures/Quilting_T2.png (PNG copy
+)> <./figures/Quilting_T3.png (PNG copy)> <./figures/Quilting_T4.png (PNG copy)
+> <./figures/Quilting_T5.png (PNG copy)>]
+[6]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 150.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 150.
  (./Xiaoli_He_hw2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 85.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 85.
-
-
-Package rerunfilecheck Warning: File `Xiaoli_He_hw2.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Xiaoli_He_hw2.out':
-(rerunfilecheck)             Before: A0491FA4DEA7F5FD9F436665B44F21F5;103
-(rerunfilecheck)             After:  1DF030F7C94633D1A24D5A9857C48880;152.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 85.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 150.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 150.
+Package rerunfilecheck Info: File `Xiaoli_He_hw2.out' has not changed.
+(rerunfilecheck)             Checksum: 9FCDA7E28B942407ECE7D4409D558149;255.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 150.
  ) 
 Here is how much of TeX's memory you used:
- 20983 strings out of 493089
- 400723 string characters out of 6134842
- 498128 words of memory out of 5000000
- 24048 multiletter control sequences out of 15000+600000
- 9189 words of font info for 35 fonts, out of 8000000 for 9000
+ 21156 strings out of 493089
+ 406407 string characters out of 6134842
+ 499527 words of memory out of 5000000
+ 24179 multiletter control sequences out of 15000+600000
+ 10888 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,7n,67p,417b,337s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on Xiaoli_He_hw2.pdf (4 pages, 4219805 bytes).
+ 55i,7n,67p,845b,335s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{http://people.csail.mit.edu/thouis/efros-freeman/
+} has been referenced but does not exist, replaced by a fixed one
+
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on Xiaoli_He_hw2.pdf (6 pages, 8556808 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 48 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 500000)
- 104 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 183 PDF objects out of 1000 (max. 8388607)
+ 85 compressed objects within 1 object stream
+ 20 named destinations out of 1000 (max. 500000)
+ 273 words of extra memory for PDF output out of 10000 (max. 10000000)
 
