@@ -78,7 +78,7 @@ def filledin(ploc, win_size, new_img, conf, target_mask, source_mask, bestmactch
                     conf[r,c] = conf[r - ploc[0] + win_size/2, c - ploc[1] + win_size/2]
 
 
-def objectremoval(filename, filetype, maskname, win_size = 9):
+def objectremoval(filename = 'hollywood', filetype = '.jpg', maskname = 'hollywood-mask.bmp', win_size = 9):
     # read sample image
     t = time.time()
     # img_sample0 = io.imread(os.getcwd() + '/Documents/Computer-Vision-534/hw2/Assignment-II-images/' + filename + filetype)
@@ -89,7 +89,7 @@ def objectremoval(filename, filetype, maskname, win_size = 9):
     alpha = 255
     ## load mask
     # mask = img_as_float(color.rgb2gray(io.imread(os.getcwd() + '/Documents/Computer-Vision-534/hw2/Assignment-II-images/' + maskname + '.jpg')))
-    mask = img_as_float(color.rgb2gray(io.imread(os.getcwd() + '/Assignment-II-images/' + maskname + '.jpg')))
+    mask = img_as_float(color.rgb2gray(io.imread(os.getcwd() + '/Assignment-II-images/' + maskname)))
     mask = mask.astype('bool') # target region: 1;  else: 0
 #     plt.imshow(mask,'gray')
 #     plt.show()
@@ -148,18 +148,24 @@ def objectremoval(filename, filetype, maskname, win_size = 9):
 
         # fill in the patch and Updating confidence values.
         filledin(prior_ploc, win_size, new_img, conf, target_mask, source_mask, BestMatch_patch)
-        idx += 1
-        if idx%50 == 0:
-            plt.imshow(new_img,'gray')
-            plt.show()
+        # idx += 1
+        # if idx%50 == 0:
+        #     plt.imshow(new_img,'gray')
+        #     plt.show()
     elapsed = time.time() - t
     print 'Total runtime is ',elapsed
     plt.imshow(new_img,'gray')
     plt.title('Object removal for %s with windowsize %d (mask for %s)' %(filename,win_size,maskname))
     plt.savefig('Removal%s_size_%d_mask%s.png' %(filename,win_size,maskname[-1]))
-    plt.show()
+    # plt.show()
 
-objectremoval('test_im3','.jpg','test_im3_mask3', win_size = 9)
+objectremoval('test_im3','.jpg','test_im3_mask3.bmp', win_size = 9)
+objectremoval('test_im3','.jpg','test_im3_mask2.bmp', win_size = 9)
+objectremoval('test_im3','.jpg','test_im3_mask1.bmp', win_size = 9)
+# check runtime of each function
+# import cProfile
+# cProfile.run('objectremoval()')
+
 
 
 
