@@ -156,12 +156,12 @@ def objectremoval(filename = 'hollywood', filetype = '.jpg', maskname = 'hollywo
     print 'Total runtime is ',elapsed
     plt.imshow(new_img,'gray')
     plt.title('Object removal for %s with windowsize %d (mask for %s)' %(filename,win_size,maskname))
-    plt.savefig('Removal%s_size_%d_mask%s.png' %(filename,win_size,maskname[-1]))
+    plt.savefig('Removal%s_size_%d_mask%s.png' %(filename,win_size,maskname[-5]))
     # plt.show()
 
-objectremoval('test_im3','.jpg','test_im3_mask3.bmp', win_size = 9)
+# objectremoval('test_im3','.jpg','test_im3_mask3.bmp', win_size = 9)
 objectremoval('test_im3','.jpg','test_im3_mask2.bmp', win_size = 9)
-objectremoval('test_im3','.jpg','test_im3_mask1.bmp', win_size = 9)
+# objectremoval('test_im3','.jpg','test_im3_mask1.bmp', win_size = 9)
 # check runtime of each function
 # import cProfile
 # cProfile.run('objectremoval()')
