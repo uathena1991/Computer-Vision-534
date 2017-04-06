@@ -39,7 +39,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Texture Synthesis}
-The synthesized images for T1,T2,..., T5.gif by with WindowSize = 5, 9 ,11, 15,23 pixels are shown in Figure \ref{fig_syth}. The average run time was about 6 min. (To filled a 200*200 pixel image).
+The synthesized images for T1,T2,..., T5.gif by with WindowSize = 5, 9 ,11, 15,23 pixels are shown in Figure \ref{fig_syth}. To filled a 200*200 pixel image, the average run time was about 105 s for window size 0f 5 pixels, and the run time doubled as window size increase. 
 
 I also tried window size of 15 and 23 pixels, and the effects are different for different examples. For example, 15 pixels worked best for T1, 23 pixels worked best for T5, and for the rest, increasing window size didn't help significantly. In general, if the texture is more complicated, increasing window size helps. 
 
@@ -130,6 +130,7 @@ Another difference is that the unit of quilting filling is patch, but the unit f
 \pagebreak
 
 \section{How to run the code}
+I ran the code using Pycharm edu on Mac. It works with no bugs. \\
 The main codes for running the given images are in the end of each py file. So just run each py file.\\
 Figures are inside the subfolder 'Assignment-II-images'. Otherwise, you may need to modify directory in the codes.\\
 Each code will save the figures and show them after each run.\\

@@ -58,7 +58,8 @@ def FindMatches(tmp, sample_img, source_mask, ValidMask, win_size):
     patches_list = patches_list0[np.sum(mask_list,(1,2))==win_size*win_size]
 
     dist_filter = (patches_list - tmp)**2 * ValidMask
-    SSD = np.asarray([d.sum() for d in dist_filter])
+    # SSD = np.asarray([d.sum() for d in dist_filter])
+    SSD = np.sum(dist_filter,(1,2)) ## much faster!!
     res_loc_1d, = np.where(SSD == SSD.min())
     # pdb.set_trace()
     return patches_list[res_loc_1d][0]
@@ -157,7 +158,7 @@ def objectremoval(filename = 'test_im3', filetype = '.jpg', maskname = 'test_im3
     plt.imshow(new_img,'gray')
     plt.title('Object removal for %s with windowsize %d (mask for %s)' %(filename,win_size,maskname))
     plt.savefig('Removal%s_size_%d_mask%s.png' %(filename,win_size,maskname[-5]))
-    # plt.show()
+    plt.show()
 
 objectremoval('test_im3','.jpg','test_im3_mask3.bmp', win_size = 9)
 objectremoval('test_im3','.jpg','test_im3_mask2.bmp', win_size = 9)

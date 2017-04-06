@@ -1,8 +1,4 @@
-# coding: utf-8
 
-# In[1]:
-
-# %reset
 import numpy as np
 import scipy
 from skimage import morphology, io, img_as_float
@@ -15,13 +11,8 @@ from sklearn import feature_extraction as sfe
 plt.interactive(False)
 sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 
-# In[2]:
-
-
-# In[ ]:
-
 ## growimage
-def inpainting(filename, filetype, win_size, sample_winsize = 51):
+def inpainting(filename = 'test_im2', filetype = 'bmp',  win_size= 5, sample_winsize = 51):
 	"""
 	:param filename: sample image
 	:param filetype: type of image
@@ -138,7 +129,8 @@ def FindMatches(template, sample_range, sam_filled_status, ValidMask_tmp, win_si
 	mask_raw = ValidMask_tmp * GaussMask
 	mask_normalized = mask_raw/mask_raw.sum()
 	dist_filter = (patches_nonzero - template)**2*mask_normalized
-	SSD = np.asarray([d.sum() for d in dist_filter])
+	# SSD = np.asarray([d.sum() for d in dist_filter])
+	SSD = np.sum(dist_filter,(1,2)) ## much faster!!
 	thr = np.nanmin(SSD) * (1 + ErrThreshold)
 	res_loc_1d, = np.where(SSD<=thr) # location in 1d
 	res_ssd_1d = SSD[res_loc_1d]  # ssd in those locations
@@ -176,3 +168,7 @@ winsizes = [5,9,11]
 for fn2 in filenames2:
     for ws in winsizes:
         inpainting(fn2, '.bmp', ws)
+
+
+# import cProfile
+# cProfile.run('inpainting()')

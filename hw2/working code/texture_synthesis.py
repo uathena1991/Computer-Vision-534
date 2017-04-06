@@ -1,25 +1,15 @@
-# coding: utf-8
 
-# In[1]:
-
-# %reset
 import numpy as np
 import scipy
 from skimage import morphology, io, img_as_float
 import matplotlib.pyplot as plt
 import os
 import sys
-import pdb
 import time
 from sklearn import feature_extraction as sfe
 plt.interactive(False)
 sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 
-
-# In[2]:
-
-
-# In[ ]:
 
 ## growimage
 def synthesize(filename = 'T1', win_size = 5, shape_newimage = (200, 200), shape_seed=(5, 5)):
@@ -136,7 +126,8 @@ def FindMatches(template, sample_img, ValidMask, win_size):
 	mask_normalized = mask_raw / mask_raw.sum()
 	patches_list = sfe.image.extract_patches_2d(sample_img, (win_size,win_size))# array, shape = (n_patches, patch_heidth)
 	dist_filter = (patches_list - template)**2*mask_normalized
-	SSD = np.asarray([d.sum() for d in dist_filter])
+	# SSD = np.asarray([d.sum() for d in dist_filter])
+	SSD = np.sum(dist_filter,(1,2)) ## much faster!!
 	thr = SSD.min() * (1 + ErrThreshold)
 	res_loc_1d, = np.where(SSD<=thr) # location in 1d
 	res_ssd_1d = SSD[res_loc_1d]  # ssd in those locations
@@ -168,12 +159,12 @@ def RandomPick(BMs_list,BMs_ssd,BMs_pixel):
 	rand_idx = np.random.randint(0, len(BMs_list))
 	return BMs_list[rand_idx],BMs_ssd[rand_idx],BMs_pixel[rand_idx]
 
-# filenames = ['T1','T2','T3','T4','T5']
-# # filenames = ['T1']
-# winsizes = [5,9,11,15,23]
-# for fn in filenames:
-# 	for ws in winsizes:
-# 		synthesize(fn, ws, [200, 200])
+filenames = ['T1','T2','T3','T4','T5']
+# filenames = ['T1']
+winsizes = [5,9,11,15,23]
+for fn in filenames:
+	for ws in winsizes:
+		synthesize(fn, ws, [200, 200])
 
-import cProfile
-cProfile.run('synthesize()')
+# import cProfile
+# cProfile.run('synthesize()')
