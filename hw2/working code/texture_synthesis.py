@@ -22,7 +22,7 @@ sys.path.append("/Users/xiaolihe/Documents/Computer-Vision-534/hw2")
 # In[ ]:
 
 ## growimage
-def synthesize(filename, win_size, shape_newimage = (200, 200), shape_seed=(5, 5)):
+def synthesize(filename = 'T1', win_size = 5, shape_newimage = (200, 200), shape_seed=(5, 5)):
 	# read sample image
 	t = time.time()
 	img_sample0 = io.imread(os.getcwd() + '/Assignment-II-images/' + filename + '.gif')
@@ -168,9 +168,12 @@ def RandomPick(BMs_list,BMs_ssd,BMs_pixel):
 	rand_idx = np.random.randint(0, len(BMs_list))
 	return BMs_list[rand_idx],BMs_ssd[rand_idx],BMs_pixel[rand_idx]
 
-filenames = ['T1','T2','T3','T4','T5']
-# filenames = ['T1']
-winsizes = [15,23]
-for fn in filenames:
-	for ws in winsizes:
-		synthesize(fn, ws, [200, 200])
+# filenames = ['T1','T2','T3','T4','T5']
+# # filenames = ['T1']
+# winsizes = [5,9,11,15,23]
+# for fn in filenames:
+# 	for ws in winsizes:
+# 		synthesize(fn, ws, [200, 200])
+
+import cProfile
+cProfile.run('synthesize()')
