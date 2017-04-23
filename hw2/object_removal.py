@@ -160,7 +160,7 @@ def objectremoval(filename = 'hollywood', filetype = '.jpg', maskname = 'hollywo
     # plt.show()
 
 # objectremoval('test_im3','.jpg','test_im3_mask3.bmp', win_size = 9)
-objectremoval('test_im3','.jpg','test_im3_mask2.bmp', win_size = 9)
+objectremoval('test_im3','.jpg','test_im3_mask2.bmp', win_size = 15)
 # objectremoval('test_im3','.jpg','test_im3_mask1.bmp', win_size = 9)
 # check runtime of each function
 # import cProfile
