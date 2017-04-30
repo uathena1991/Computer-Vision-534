@@ -20,7 +20,7 @@ switch part_idx
         %% 1.2-1.3 matrix P
         P = zeros(2*length(corner_W),12);
         for pp = 1:length(corner_W)
-            P(2*pp-1:2*pp,:) = cal_P_matrix(corner_W(pp,:),corner_img(pp,:));
+            P(2*pp-1 : 2*pp,:) = cal_P_matrix(corner_W(pp,:),corner_img(pp,:));
         end
         disp('****************************************************');
         disp('Part 1.3: P matrix');
@@ -125,13 +125,13 @@ switch part_idx
             % corners in the world coordinates
             gridWidth = 9*30;
             gridHeight = 7*30;
-            corner_w = [0,gridWidth,gridWidth,0;
+            homo_corner_w = [0,gridWidth,gridWidth,0;
                 0,0,gridHeight,gridHeight;
                 1,1,1,1];
-            H1 = homography2d(corner_w, homo_1);
-            H2 = homography2d(corner_w, homo_2);
-            H3 = homography2d(corner_w, homo_3);
-            H4 = homography2d(corner_w, homo_4);
+            H1 = homography2d(homo_corner_w, homo_1);
+            H2 = homography2d(homo_corner_w, homo_2);
+            H3 = homography2d(homo_corner_w, homo_3);
+            H4 = homography2d(homo_corner_w, homo_4);
             % normalize
             H1 = H1/H1(3,3);
             H2 = H2/H2(3,3);
