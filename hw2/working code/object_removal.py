@@ -160,9 +160,15 @@ def objectremoval(filename = 'test_im3', filetype = '.jpg', maskname = 'test_im3
     plt.savefig('Removal%s_size_%d_mask%s.png' %(filename,win_size,maskname[-5]))
     plt.show()
 
+<<<<<<< HEAD:hw2/object_removal.py
+# objectremoval('test_im3','.jpg','test_im3_mask3.bmp', win_size = 9)
+objectremoval('test_im3','.jpg','test_im3_mask2.bmp', win_size = 15)
+# objectremoval('test_im3','.jpg','test_im3_mask1.bmp', win_size = 9)
+=======
 objectremoval('test_im3','.jpg','test_im3_mask3.bmp', win_size = 9)
 objectremoval('test_im3','.jpg','test_im3_mask2.bmp', win_size = 9)
 objectremoval('test_im3','.jpg','test_im3_mask1.bmp', win_size = 9)
+>>>>>>> origin/master:hw2/working code/object_removal.py
 # check runtime of each function
 # import cProfile
 # cProfile.run('objectremoval()')
